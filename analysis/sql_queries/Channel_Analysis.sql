@@ -46,9 +46,7 @@ FROM customer_data
 GROUP BY channel
 ORDER BY avg DESC
 
---High value customers
-SELECT channel,COUNT(*),AVG(revenue) AS average_high_revenue
-FROM customer_data
+
 WHERE revenue > (SELECT PERCENTILE_CONT(0.8) WITHIN GROUP (ORDER BY revenue)FROM customer_data)
 GROUP BY channel
 ORDER BY average_high_revenue DESC
